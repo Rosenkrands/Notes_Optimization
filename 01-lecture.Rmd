@@ -1,0 +1,104 @@
+# Lecture
+
+## Machine epsilon
+The first exercise from this lecture was to write a program to determine the relative machine epsilon.
+
+```{r}
+# First we define a function that takes no input
+machine.eps <- function() {
+  # We guess that the machine epsilon is less than 1, so this is where we start
+  eps <- 1
+  # Then we want to add eps times one half and check if the result is neq 1
+  while (1 + eps / 2 != 1) {
+  # If that is not the case we divide eps by 2 and check the condtion again
+  eps <- eps / 2
+  }
+  # When the condition no longer hold our result is the relative machine
+  # epsilon, i.e. the point where the computer can no longer distinguish 1 and 1 + eps
+  return(eps)
+}
+machine.eps()
+```
+
+## Finding roots with search algorithms
+
+### Defining the objective function
+Then we defined a function.
+
+```{r}
+# The function is first defined
+f <- function(x) {x^3 - x^2 - 1}
+```
+
+Tested it for relevant values
+
+```{r}
+f(0)
+f(2)
+f(1.5)
+```
+
+And plotted the output for the function
+
+```{r}
+a <- 0
+b <- 2
+curve(f, a, b)
+abline(h = 0, col = "gray")
+```
+
+We then went about finding the root of this function, first by naive search and thereafter using the bisectional method.
+
+### Naive search
+
+```{r}
+set.seed(1)
+
+x_candidate <- runif(n = 1, a, b)
+x_candidate
+
+f_candidate <- f(x_candidate)
+f_candidate
+
+f_tolerance <- 1e-5
+
+naive_search <- function() {
+    iterations <- 0
+  while (abs(f_candidate) > f_tolerance) {
+    x_candidate <- runif(n = 1, a, b)
+    f_candidate <- f(x_candidate)
+    iterations <- iterations + 1
+  }
+  cat(
+    "x candidate:\t", 
+    x_candidate, "\t", 
+    "f candidate:\t", 
+    f_candidate, "\t", 
+    "number of iterations:\t", 
+    iterations)
+}
+naive_search()
+```
+
+### Bisectional method
+
+```{r}
+bisection <- function(f, a, b, tolerance = 1e-5, max_iterations = 1000) {
+  iterations <- 0
+  for (i in 1:max_iterations) {
+    c <- (a + b)/2
+    if (sign(f(a)) == sign(f(c))) {
+      a <- c
+    } else {
+      b <- c
+    }
+    iterations <- iterations + 1
+    if (abs(f(c)) < tolerance){
+      break
+    }
+  }
+  cat("Root:\t", c, "f candidate:\t", f(c), "In:\t", iterations, "iterations")
+}
+bisection(f, 0, 2)
+```
+

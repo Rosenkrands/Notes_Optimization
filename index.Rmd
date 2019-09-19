@@ -1,0 +1,15 @@
+---
+title: "Optimization Notes"
+author: "Kasper Rosenkrands"
+date: "19.09.2019"
+output: bookdown::gitbook
+site: bookdown::bookdown_site
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+
+This book will include notes and exercises from the Optimization course at Aalborg University.

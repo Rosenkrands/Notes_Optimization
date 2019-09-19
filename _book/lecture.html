@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Lecture | Optimization Notes</title>
+  <meta name="description" content="2 Lecture | Optimization Notes" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 Lecture | Optimization Notes" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Lecture | Optimization Notes" />
+  
+  
+  
+
+<meta name="author" content="Kasper Rosenkrands" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="lecture.html"><a href="lecture.html"><i class="fa fa-check"></i><b>2</b> Lecture</a><ul>
+<li class="chapter" data-level="2.1" data-path="lecture.html"><a href="lecture.html#machine-epsilon"><i class="fa fa-check"></i><b>2.1</b> Machine epsilon</a></li>
+<li class="chapter" data-level="2.2" data-path="lecture.html"><a href="lecture.html#finding-roots-with-search-algorithms"><i class="fa fa-check"></i><b>2.2</b> Finding roots with search algorithms</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="lecture.html"><a href="lecture.html#defining-the-objective-function"><i class="fa fa-check"></i><b>2.2.1</b> Defining the objective function</a></li>
+<li class="chapter" data-level="2.2.2" data-path="lecture.html"><a href="lecture.html#naive-search"><i class="fa fa-check"></i><b>2.2.2</b> Naive search</a></li>
+<li class="chapter" data-level="2.2.3" data-path="lecture.html"><a href="lecture.html#bisectional-method"><i class="fa fa-check"></i><b>2.2.3</b> Bisectional method</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Optimization Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="lecture" class="section level1">
+<h1><span class="header-section-number">2</span> Lecture</h1>
+<div id="machine-epsilon" class="section level2">
+<h2><span class="header-section-number">2.1</span> Machine epsilon</h2>
+<p>The first exercise from this lecture was to write a program to determine the relative machine epsilon.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="co"># First we define a function that takes no input</span></a>
+<a class="sourceLine" id="cb1-2" title="2">machine.eps &lt;-<span class="st"> </span><span class="cf">function</span>() {</a>
+<a class="sourceLine" id="cb1-3" title="3">  <span class="co"># We guess that the machine epsilon is less than 1, so this is where we start</span></a>
+<a class="sourceLine" id="cb1-4" title="4">  eps &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb1-5" title="5">  <span class="co"># Then we want to add eps times one half and check if the result is neq 1</span></a>
+<a class="sourceLine" id="cb1-6" title="6">  <span class="cf">while</span> (<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>eps <span class="op">/</span><span class="st"> </span><span class="dv">2</span> <span class="op">!=</span><span class="st"> </span><span class="dv">1</span>) {</a>
+<a class="sourceLine" id="cb1-7" title="7">  <span class="co"># If that is not the case we divide eps by 2 and check the condtion again</span></a>
+<a class="sourceLine" id="cb1-8" title="8">  eps &lt;-<span class="st"> </span>eps <span class="op">/</span><span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb1-9" title="9">  }</a>
+<a class="sourceLine" id="cb1-10" title="10">  <span class="co"># When the condition no longer hold our result is the relative machine</span></a>
+<a class="sourceLine" id="cb1-11" title="11">  <span class="co"># epsilon, i.e. the point where the computer can no longer distinguish 1 and 1 + eps</span></a>
+<a class="sourceLine" id="cb1-12" title="12">  <span class="kw">return</span>(eps)</a>
+<a class="sourceLine" id="cb1-13" title="13">}</a>
+<a class="sourceLine" id="cb1-14" title="14"><span class="kw">machine.eps</span>()</a></code></pre></div>
+<pre><code>## [1] 2.220446e-16</code></pre>
+</div>
+<div id="finding-roots-with-search-algorithms" class="section level2">
+<h2><span class="header-section-number">2.2</span> Finding roots with search algorithms</h2>
+<div id="defining-the-objective-function" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> Defining the objective function</h3>
+<p>Then we defined a function.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co"># The function is first defined</span></a>
+<a class="sourceLine" id="cb3-2" title="2">f &lt;-<span class="st"> </span><span class="cf">function</span>(x) {x<span class="op">^</span><span class="dv">3</span> <span class="op">-</span><span class="st"> </span>x<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>}</a></code></pre></div>
+<p>Tested it for relevant values</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">f</span>(<span class="dv">0</span>)</a></code></pre></div>
+<pre><code>## [1] -1</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">f</span>(<span class="dv">2</span>)</a></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">f</span>(<span class="fl">1.5</span>)</a></code></pre></div>
+<pre><code>## [1] 0.125</code></pre>
+<p>And plotted the output for the function</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">a &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb10-2" title="2">b &lt;-<span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb10-3" title="3"><span class="kw">curve</span>(f, a, b)</a>
+<a class="sourceLine" id="cb10-4" title="4"><span class="kw">abline</span>(<span class="dt">h =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;gray&quot;</span>)</a></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>We then went about finding the root of this function, first by naive search and thereafter using the bisectional method.</p>
+</div>
+<div id="naive-search" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> Naive search</h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb11-2" title="2"></a>
+<a class="sourceLine" id="cb11-3" title="3">x_candidate &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n =</span> <span class="dv">1</span>, a, b)</a>
+<a class="sourceLine" id="cb11-4" title="4">x_candidate</a></code></pre></div>
+<pre><code>## [1] 0.5310173</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">f_candidate &lt;-<span class="st"> </span><span class="kw">f</span>(x_candidate)</a>
+<a class="sourceLine" id="cb13-2" title="2">f_candidate</a></code></pre></div>
+<pre><code>## [1] -1.132243</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1">f_tolerance &lt;-<span class="st"> </span><span class="fl">1e-5</span></a>
+<a class="sourceLine" id="cb15-2" title="2"></a>
+<a class="sourceLine" id="cb15-3" title="3">naive_search &lt;-<span class="st"> </span><span class="cf">function</span>() {</a>
+<a class="sourceLine" id="cb15-4" title="4">    iterations &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb15-5" title="5">  <span class="cf">while</span> (<span class="kw">abs</span>(f_candidate) <span class="op">&gt;</span><span class="st"> </span>f_tolerance) {</a>
+<a class="sourceLine" id="cb15-6" title="6">    x_candidate &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n =</span> <span class="dv">1</span>, a, b)</a>
+<a class="sourceLine" id="cb15-7" title="7">    f_candidate &lt;-<span class="st"> </span><span class="kw">f</span>(x_candidate)</a>
+<a class="sourceLine" id="cb15-8" title="8">    iterations &lt;-<span class="st"> </span>iterations <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb15-9" title="9">  }</a>
+<a class="sourceLine" id="cb15-10" title="10">  <span class="kw">cat</span>(</a>
+<a class="sourceLine" id="cb15-11" title="11">    <span class="st">&quot;x candidate:</span><span class="ch">\t</span><span class="st">&quot;</span>, </a>
+<a class="sourceLine" id="cb15-12" title="12">    x_candidate, <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>, </a>
+<a class="sourceLine" id="cb15-13" title="13">    <span class="st">&quot;f candidate:</span><span class="ch">\t</span><span class="st">&quot;</span>, </a>
+<a class="sourceLine" id="cb15-14" title="14">    f_candidate, <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>, </a>
+<a class="sourceLine" id="cb15-15" title="15">    <span class="st">&quot;number of iterations:</span><span class="ch">\t</span><span class="st">&quot;</span>, </a>
+<a class="sourceLine" id="cb15-16" title="16">    iterations)</a>
+<a class="sourceLine" id="cb15-17" title="17">}</a>
+<a class="sourceLine" id="cb15-18" title="18"><span class="kw">naive_search</span>()</a></code></pre></div>
+<pre><code>## x candidate:  1.465572    f candidate:    1.327446e-06    number of iterations:   441550</code></pre>
+</div>
+<div id="bisectional-method" class="section level3">
+<h3><span class="header-section-number">2.2.3</span> Bisectional method</h3>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">bisection &lt;-<span class="st"> </span><span class="cf">function</span>(f, a, b, <span class="dt">tolerance =</span> <span class="fl">1e-5</span>, <span class="dt">max_iterations =</span> <span class="dv">1000</span>) {</a>
+<a class="sourceLine" id="cb17-2" title="2">  iterations &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb17-3" title="3">  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>max_iterations) {</a>
+<a class="sourceLine" id="cb17-4" title="4">    c &lt;-<span class="st"> </span>(a <span class="op">+</span><span class="st"> </span>b)<span class="op">/</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb17-5" title="5">    <span class="cf">if</span> (<span class="kw">sign</span>(<span class="kw">f</span>(a)) <span class="op">==</span><span class="st"> </span><span class="kw">sign</span>(<span class="kw">f</span>(c))) {</a>
+<a class="sourceLine" id="cb17-6" title="6">      a &lt;-<span class="st"> </span>c</a>
+<a class="sourceLine" id="cb17-7" title="7">    } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb17-8" title="8">      b &lt;-<span class="st"> </span>c</a>
+<a class="sourceLine" id="cb17-9" title="9">    }</a>
+<a class="sourceLine" id="cb17-10" title="10">    iterations &lt;-<span class="st"> </span>iterations <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb17-11" title="11">    <span class="cf">if</span> (<span class="kw">abs</span>(<span class="kw">f</span>(c)) <span class="op">&lt;</span><span class="st"> </span>tolerance){</a>
+<a class="sourceLine" id="cb17-12" title="12">      <span class="cf">break</span></a>
+<a class="sourceLine" id="cb17-13" title="13">    }</a>
+<a class="sourceLine" id="cb17-14" title="14">  }</a>
+<a class="sourceLine" id="cb17-15" title="15">  <span class="kw">cat</span>(<span class="st">&quot;Root:</span><span class="ch">\t</span><span class="st">&quot;</span>, c, <span class="st">&quot;In:</span><span class="ch">\t</span><span class="st">&quot;</span>, iterations, <span class="st">&quot;iterations&quot;</span>)</a>
+<a class="sourceLine" id="cb17-16" title="16">}</a>
+<a class="sourceLine" id="cb17-17" title="17"><span class="kw">bisection</span>(f, <span class="dv">0</span>, <span class="dv">2</span>)</a></code></pre></div>
+<pre><code>## Root:     1.465569 In:    18 iterations</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
