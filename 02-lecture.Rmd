@@ -1,0 +1,37 @@
+# Lecture
+
+The exercises for this lecture revolves around line search methods.
+The first exercise is to implement steepest descent.
+
+## Steepest descent
+
+```{r}
+# First we need a function that we want to minimize
+f <- function (x) {x^2 + 2*x + 3}
+# We also need the gradient of the function
+g <- function(x) {2*x + 2}
+
+# Then we can implement steepest descent for this function
+steepest_descent <- function (x_0, alpha = 0.1, obj_func = f, obj_grad = g, max_it = 100) {
+  #First we plot the function in an arbitrary interval
+  curve(f, -3, 4)
+  # Insert the initial point in the plot
+  points(x_0, f(x_0))
+  # And set our x_k equal to the x_0
+  x_k <- x_0
+  for (i in 1:max_it) {
+    # Then we find the steepest descent direction
+    p_k <- -obj_grad(x_k)
+    # We take a step of length alpha in the direction just found
+    x_k <- x_k + alpha * p_k
+    # Evaluate the function at this x_k
+    f_k <- obj_func(x_k)
+    # And plot our new position
+    points(x_k, f_k)
+  }
+}
+
+#The steepest descent implementation with x_0 = 4
+steepest_descent(4)
+```
+
