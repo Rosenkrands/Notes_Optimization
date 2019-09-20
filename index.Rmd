@@ -10,6 +10,6 @@ site: bookdown::bookdown_site
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Introduction
+# Introduction {-}
 
 This book will include notes and exercises from the Optimization course at Aalborg University.
