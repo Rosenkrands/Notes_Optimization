@@ -7,12 +7,17 @@ The first exercise is to implement steepest descent.
 
 ```{r}
 # First we need a function that we want to minimize
-f <- function (x) {x^2 + 2*x + 3}
+obj_f <- function (x) {x^2 + 2*x + 3}
 # We also need the gradient of the function
-g <- function(x) {2*x + 2}
+obj_g <- function(x) {2*x + 2}
 
 # Then we can implement steepest descent for this function
-steepest_descent <- function (x_0, alpha = 0.1, obj_func = f, obj_grad = g, max_it = 100) {
+steepest_descent <- 
+  function (x_0, 
+            alpha = 0.1, 
+            f = obj_f, 
+            g = obj_g, 
+            max_it = 100) {
   #First we plot the function in an arbitrary interval
   curve(f, -3, 4)
   # Insert the initial point in the plot
@@ -21,11 +26,11 @@ steepest_descent <- function (x_0, alpha = 0.1, obj_func = f, obj_grad = g, max_
   x_k <- x_0
   for (i in 1:max_it) {
     # Then we find the steepest descent direction
-    p_k <- -obj_grad(x_k)
+    p_k <- -g(x_k)
     # We take a step of length alpha in the direction just found
     x_k <- x_k + alpha * p_k
     # Evaluate the function at this x_k
-    f_k <- obj_func(x_k)
+    f_k <- f(x_k)
     # And plot our new position
     points(x_k, f_k)
   }
@@ -35,3 +40,61 @@ steepest_descent <- function (x_0, alpha = 0.1, obj_func = f, obj_grad = g, max_
 steepest_descent(4)
 ```
 
+## Backtracking line search
+The nexto topic is to implement a backtracking line search algorithm for determining a more optimal step length, and thereafter include it in the steepest descent algorithm.
+
+```{r}
+# Our algorithm will take an initial position,
+# objective function, the gradient of this
+# function, rho (how much smaller to make the step),
+# c (our tolerance) and alpha_hat (initial step length)
+backtracking_line_search <- 
+  function (x_0, 
+            f = obj_f, 
+            g = obj_g, 
+            rho = 0.5, 
+            c = 10e-4, 
+            alpha_hat = 0.1) {
+  # we set x_k equal to the initial position
+  x_k <- x_0
+  # we find the direction of steepest descent
+  p_k <- -g(x_k)
+  # the initial step length is set to alpha_hat
+  alpha <- alpha_hat
+  while (
+    f(x_k + alpha * p_k) > 
+    f(x_k + c * alpha * g(x_k) * p_k)
+        ) {
+    # If the condition is not met, we shrink the step
+    alpha <- alpha * rho
+  }
+  alpha
+}
+backtracking_line_search(1)
+```
+
+### Combining steepest descent and backtracking
+Now its time to include the backtracking in the steepest descent algorithm.
+
+```{r}
+steepest_descent_w_backtrack <- 
+  function (x_0, 
+            alpha = 1, 
+            f = obj_f, 
+            g = obj_g, 
+            max_it = 100) {
+  curve(f, -6, 3)
+  points(x_0, f(x_0))
+  x_k <- x_0
+  for (i in 1:max_it) {
+    # the step length is recalculated in 
+    # each iteration of the for loop
+    alpha <- backtracking_line_search(x_k)
+    p_k <- -obj_g(x_k)
+    x_k <- x_k + alpha * p_k
+    f_k <- obj_f(x_k)
+    points(x_k, f_k)
+  }
+}
+steepest_descent_w_backtrack(-5)
+```
