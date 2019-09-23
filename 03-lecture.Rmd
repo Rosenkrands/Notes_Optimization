@@ -92,23 +92,4 @@ zoom <- function(a_lo, a_hi, x_k, c1, c2) {
 zoom(0, 10, 4, 0.2, 0.5)
 ```
 
-* Make sure that the implementation supports the different step sizes we have discussed (fixed, backtracking and satisfying weak/strong Wolfe conditions)
-    + Discuss in the group how this can be done in practise (including identifing problems that you don't know how to solve technically)
-* Discuss when to terminate the algorithm
-* Your implementation must return both $x^*$ and the path ($\{x_k\}_k$) [Hint in pseudo code: `return(list(x = ..., path = ...))`]
-    + Why? Use the information.
-
-# Newton's method
-
-Implement Newton's method, including using different step sizes (see above). Discuss what is needed as argument in addition to your implementation of gradient descent. Your implementation must return both $x^*$ and the iterates ($\{x_k\}_k$).
-
-# Comparing the methods
-
-* Look at the [Rosenbrock function](https://en.wikipedia.org/wiki/Rosenbrock_function)
-* Plot it for some values of $a$ and $b$
-    + Discuss how to plot this function to get an impression of it
-* Compare the methods mentioned above (gradient descent and Newton's method) for a few different choices of the Rosenbrock function ($a$ and $b$ parameters) as well as different step sizes algorithms and starting values
-
-# Zoutendijk's theorem
-
-Discuss Theorem 3.2 (Zoutendijk) and work through the proof (possibly fill in details).
+None of them seem to work as desired at this point.
