@@ -34,6 +34,7 @@ steepest_descent <-
     # And plot our new position
     points(x_k, f_k)
   }
+  cat('f(x):',f_k,'\t','x:',x_k)
 }
 
 #The steepest descent implementation with x_0 = 4
