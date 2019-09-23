@@ -1,0 +1,114 @@
+# Lecture
+
+# Gradient descent and step size
+Implementing wolfe condition
+
+An attempt following the pseudo code on page 61 in the textbook
+```{r}
+obj_f <- function (x) {x^2 + 2*x + 3}
+obj_g <- function (x) {2*x + 2}
+
+a_int <- c(10e-4, 1)
+
+zoom <- function(x, a_int, f = obj_f, g = obj_g, c1 = 10e-4, c2 = 0.9) {
+  repeat {
+    alpha_k <- runif(1, a_int[1], a_int[2])
+    p_k <- -g(x)
+    phi_k <- f(x + alpha_k*p_k)
+    if(
+      phi_k > f(x) + c1 * alpha_k * g(x)*p_k
+      ||
+      phi_k >= f(x + a_int[1]*p_k) 
+      ) {
+      a_int[2] <- alpha_k
+    } else {
+        dphi_k <- g(x + alpha_k * p_k) * p_k
+        if (abs(dphi_k) <= -c2 * g(x) * p_k) {
+          alpha_star <- alpha_k
+          break
+        }
+        if (dphi_k * (a_int[2] - a_int[1]) >= 0) {
+          a_int[2] <- a_int[1]
+        }
+      a_int[1] <- alpha_k
+    }
+    break
+  }
+  alpha_star
+}
+zoom(-6, c(10e-4, 1))
+```
+
+Another based on the skeleton provided by Mikkel
+```{r}
+f <- function (x) {x^2 + 2*x + 3}
+g <- function (x) {2*x + 2}
+
+a_int <- c(10e-4, 1)
+a_lo <- a_int[1]
+a_hi <- a_int[2]
+
+zoom <- function(a_lo, a_hi, x_k, c1, c2) {
+	f_k <- f(x_k)
+	g_k <- g(x_k)
+	p_k <- -g_k
+	
+	k <- 0
+	k_max <- 1000   # Maximum number of iterations.
+	done <- FALSE
+	
+	while(!done) {
+		k <- k + 1
+		phi_lo <-  f_k + a_lo * p_k
+
+		a_k <- 0.5*(a_lo + a_hi)
+		phi_k <-  f(x_k + a_k * p_k)
+		dphi_k_0 <- g_k*p_k
+		l_k <- f_k + c1 * a_k * dphi_k_0
+		
+		if ((phi_k > l_k) || (phi_k >= phi_lo)) {
+		  a_hi <- a_k
+		} else {
+			dphi_k <-  g(x_k + a_k*p_k)*p_k
+			
+			if (abs(dphi_k) <= -c2*dphi_k_0) {
+			  return(a_k)
+			  break
+			}
+			
+			if (dphi_k*(a_hi - a_lo) >= 0) {
+			  a_hi <- a_lo
+			}
+			
+			a_lo <- a_k
+		}
+		
+		done <- (k > k_max)
+	}
+	
+	return(a_k)
+}
+
+zoom(0, 10, 4, 0.2, 0.5)
+```
+
+* Make sure that the implementation supports the different step sizes we have discussed (fixed, backtracking and satisfying weak/strong Wolfe conditions)
+    + Discuss in the group how this can be done in practise (including identifing problems that you don't know how to solve technically)
+* Discuss when to terminate the algorithm
+* Your implementation must return both $x^*$ and the path ($\{x_k\}_k$) [Hint in pseudo code: `return(list(x = ..., path = ...))`]
+    + Why? Use the information.
+
+# Newton's method
+
+Implement Newton's method, including using different step sizes (see above). Discuss what is needed as argument in addition to your implementation of gradient descent. Your implementation must return both $x^*$ and the iterates ($\{x_k\}_k$).
+
+# Comparing the methods
+
+* Look at the [Rosenbrock function](https://en.wikipedia.org/wiki/Rosenbrock_function)
+* Plot it for some values of $a$ and $b$
+    + Discuss how to plot this function to get an impression of it
+* Compare the methods mentioned above (gradient descent and Newton's method) for a few different choices of the Rosenbrock function ($a$ and $b$ parameters) as well as different step sizes algorithms and starting values
+
+# Zoutendijk's theorem
+
+Discuss Theorem 3.2 (Zoutendijk) and work through the proof (possibly fill in details).
